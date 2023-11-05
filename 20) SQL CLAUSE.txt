@@ -1,0 +1,21 @@
+CREATE DATABASE test1;
+USE test1;
+CREATE TABLE Employee(
+ Empno INT PRIMARY KEY,
+ Ename VARCHAR(20),
+ Job VARCHAR(20),
+ Salary DECIMAL(10,2)
+);
+INSERT INTO Employee (Empno, Ename, Job, Salary) VALUES
+(1, 'gaurav', 'Manager', 60000.00),
+(2, 'shreyas', 'Developer', 55000.00),
+(3, 'varun', 'Analyst', 50000.00),
+(4, 'sham', 'Designer', 52000.00),
+(5, 'pranav', 'Tester', 48000.00);
+SELECT * FROM Employee;
+SELECT Job, AVG(Salary) AS AverageSalary
+FROM Employee
+WHERE Salary > 50000
+GROUP BY Job
+HAVING AverageSalary > 51000
+ORDER BY AverageSalary DESC;
