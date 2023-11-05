@@ -1,0 +1,27 @@
+  create database practicalsdb;
+  use practicalsdb;
+  create table borrower (rollno int, name varchar(30), doi date, bname varchar(30), status varchar(1));
+insert into borrower values('15','varun','2021-05-05','TOC','I'),('25','pranav','2022-06-06','DBMS','I'),('35','shreyas','2023-07-07','SPOS','I'),('45','sham','2020-08-08','SPM','I');
+  create table fine(roll int, dor date, amount int);
+  select * from borrower;
+  delimiter $
+  create procedure calfine(nroll int,rname varchar(30))
+begin
+declare days int;
+select datediff(curdate(),doi) into days from borrower where rollno=nroll;
+if(days>=15 && days<=30)
+then
+insert into fine values(nroll,curdate(),(days*5));
+end if;
+if(days>30)
+then
+insert into fine values(nroll,curdate(),(days*50));
+end if;
+end $
+  call calfine('15','TOC');$
+  select * from borrower;
+$
+  call calfine('25','DBMS');
+$
+  select * from fine;
+$
